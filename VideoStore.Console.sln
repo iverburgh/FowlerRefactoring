@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoStore.Console", "VideoStore.Console\VideoStore.Console.csproj", "{09DFB353-5834-4F50-A1CC-3E14842C6984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoStore.Console", "VideoStore.Console\VideoStore.Console.csproj", "{09DFB353-5834-4F50-A1CC-3E14842C6984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoStore.Console.Tests", "VideoStore.Console.Tests\VideoStore.Console.Tests.csproj", "{FB1FEE76-AF95-4347-BB9B-F454DEE04655}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoStore.Console.Tests", "VideoStore.Console.Tests\VideoStore.Console.Tests.csproj", "{FB1FEE76-AF95-4347-BB9B-F454DEE04655}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{9714C22A-7A0C-4025-8590-A9883939D1C0}"
+	ProjectSection(SolutionItems) = preProject
+		Database\CreateDatabase.sql = Database\CreateDatabase.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
