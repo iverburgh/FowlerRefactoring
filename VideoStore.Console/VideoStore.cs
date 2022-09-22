@@ -38,19 +38,13 @@ namespace VideoStore.Console
             foreach (var perf in invoice.Performances)
             {
                 var play = plays[perf.PlayId];
-                int thisAmount;
-
-                thisAmount = GetAmountForPerformance(play.PayType, perf.Audience);
-
-                // add volume credits
-                volumeCredits += Math.Max(perf.Audience - 30, 0);
-                // add extra credit for every ten comedy attendees
-                if (PayType.Comedy == play.PayType) volumeCredits += (int)Math.Floor((decimal)perf.Audience / 5);
+                var amountForPerformance = GetAmountForPerformance(play.PayType, perf.Audience);
+                volumeCredits += GetVolumeCreditsOfPerformance(perf.Audience, play.PayType);
 
                 // print line for this order
-                result.Append($"  {play.Name}: {(thisAmount / 100).ToString("C", format)}");
+                result.Append($"  {play.Name}: {(amountForPerformance / 100).ToString("C", format)}");
                 result.AppendLine($" ({perf.Audience} seats)");
-                totalAmount += thisAmount;
+                totalAmount += amountForPerformance;
             }
 
             result.Append(format, $"Amount owed is {(totalAmount / 100).ToString("C", format)}");
@@ -59,12 +53,23 @@ namespace VideoStore.Console
             return result.ToString();
         }
 
+        private static int GetVolumeCreditsOfPerformance(int audience, PayType payType)
+        {
+            var volumeCredits = Math.Max(audience - 30, 0);
+            if (PayType.Comedy == payType)
+            {
+                volumeCredits += (int)Math.Floor((decimal)audience / 5);
+            }
+            return volumeCredits;
+        }
+
         private static int GetAmountForPerformance(PayType payType, int audience)
         {
+            var amountForPerformance = 0;
             switch (payType)
             {
                 case PayType.Tragedy:
-                    var amountForPerformance = 40000;
+                    amountForPerformance = 40000;
                     if (audience > 30) amountForPerformance += 1000 * (audience - 30);
 
                     return amountForPerformance;
