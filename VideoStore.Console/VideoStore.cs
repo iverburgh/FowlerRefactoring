@@ -1,10 +1,31 @@
 ﻿using System.Globalization;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using VideoStore.Console.Extensions;
+using VideoStore.Console.Models;
 
 namespace VideoStore.Console
 {
     public class VideoStore : IVideoStore
     {
+        public string GetInvoicesOfAllCustomers()
+        {
+            var invoicesOfAllCustomers = string.Empty;
+            var videoStoreContext = new VideoStoreContext();
+            var customerList = videoStoreContext.Customers
+                .Include(c => c.Performances)
+                .ThenInclude(p => p.Play)
+                .ToList();
+            foreach (var customer in customerList)
+            {
+                var invoice = new Invoice(customer.Name, customer.Performances.Select(cp => cp.ToDomainPerformance()));
+                var playDictionary = videoStoreContext.Plays.ToDictionary(p => p.ShortName ?? string.Empty,
+                    p => new Play(p.Name, (PayType)p.PayType));
+                invoicesOfAllCustomers += Statement(invoice, playDictionary);
+            }
+            return invoicesOfAllCustomers;
+        }
+
         public string Statement(Invoice invoice, IReadOnlyDictionary<string, Play> plays)
         {
             int totalAmount = 0;
@@ -19,23 +40,7 @@ namespace VideoStore.Console
                 var play = plays[perf.PlayId];
                 int thisAmount;
 
-                switch (play.PayType)
-                {
-                    case PayType.Tragedy:
-                        thisAmount = 40000;
-                        if (perf.Audience > 30) thisAmount += 1000 * (perf.Audience - 30);
-
-                        break;
-
-                    case PayType.Comedy:
-                        thisAmount = 30000;
-                        if (perf.Audience > 20) thisAmount += 10000 + 500 * (perf.Audience - 20);
-                        thisAmount += 300 * perf.Audience;
-                        break;
-
-                    default:
-                        throw new Exception($"unknown type: {play.PayType}");
-                }
+                thisAmount = GetAmountForPerformance(play, perf);
 
                 // add volume credits
                 volumeCredits += Math.Max(perf.Audience - 30, 0);
@@ -52,6 +57,30 @@ namespace VideoStore.Console
             result.AppendLine("");
             result.Append($"You earned {volumeCredits} credits");
             return result.ToString();
+        }
+
+        private static int GetAmountForPerformance(Play play, Performance perf)
+        {
+            int thisAmount;
+            switch (play.PayType)
+            {
+                case PayType.Tragedy:
+                    thisAmount = 40000;
+                    if (perf.Audience > 30) thisAmount += 1000 * (perf.Audience - 30);
+
+                    break;
+
+                case PayType.Comedy:
+                    thisAmount = 30000;
+                    if (perf.Audience > 20) thisAmount += 10000 + 500 * (perf.Audience - 20);
+                    thisAmount += 300 * perf.Audience;
+                    break;
+
+                default:
+                    throw new Exception($"unknown type: {play.PayType}");
+            }
+
+            return thisAmount;
         }
     }
 }
