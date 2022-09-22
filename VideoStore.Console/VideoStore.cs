@@ -3,23 +3,34 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using VideoStore.Console.Extensions;
 using VideoStore.Console.Models;
+using VideoStore.Console.Persistence;
 
 namespace VideoStore.Console
 {
     public class VideoStore : IVideoStore
     {
+        private readonly IRepository<Models.Customer> _customerRepository;
+        private readonly IRepository<Models.Performance> _performanceRepository;
+        private readonly IRepository<Models.Play> _playRepository;
+
+        public VideoStore(
+            IRepository<Customer> customerRepository,
+            IRepository<Models.Performance> performanceRepository,
+            IRepository<Models.Play> playRepository)
+        {
+            _customerRepository = customerRepository;
+            _performanceRepository = performanceRepository;
+            _playRepository = playRepository;
+        }
+
         public string GetInvoicesOfAllCustomers()
         {
             var invoicesOfAllCustomers = string.Empty;
-            var videoStoreContext = new VideoStoreContext();
-            var customerList = videoStoreContext.Customers
-                .Include(c => c.Performances)
-                .ThenInclude(p => p.Play)
-                .ToList();
+            var customerList = _customerRepository.GetAll();
             foreach (var customer in customerList)
             {
-                var invoice = new Invoice(customer.Name, customer.Performances.Select(cp => cp.ToDomainPerformance()));
-                var playDictionary = videoStoreContext.Plays.ToDictionary(p => p.ShortName ?? string.Empty,
+                var invoice = new Invoice(customer.Name, _performanceRepository.GetAll().Select(cp => cp.ToDomainPerformance()));
+                var playDictionary = _playRepository.GetAll().ToDictionary(p => p.ShortName ?? string.Empty,
                     p => new Play(p.Name, (PayType)p.PayType));
                 invoicesOfAllCustomers += Statement(invoice, playDictionary);
             }
