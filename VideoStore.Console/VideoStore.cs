@@ -40,7 +40,7 @@ namespace VideoStore.Console
                 var play = plays[perf.PlayId];
                 int thisAmount;
 
-                thisAmount = GetAmountForPerformance(play, perf);
+                thisAmount = GetAmountForPerformance(play.PayType, perf.Audience);
 
                 // add volume credits
                 volumeCredits += Math.Max(perf.Audience - 30, 0);
@@ -59,28 +59,27 @@ namespace VideoStore.Console
             return result.ToString();
         }
 
-        private static int GetAmountForPerformance(Play play, Performance perf)
+        private static int GetAmountForPerformance(PayType payType, int audience)
         {
-            int thisAmount;
-            switch (play.PayType)
+            int amountForPerformance;
+            switch (payType)
             {
                 case PayType.Tragedy:
-                    thisAmount = 40000;
-                    if (perf.Audience > 30) thisAmount += 1000 * (perf.Audience - 30);
+                    amountForPerformance = 40000;
+                    if (audience > 30) amountForPerformance += 1000 * (audience - 30);
 
                     break;
 
                 case PayType.Comedy:
-                    thisAmount = 30000;
-                    if (perf.Audience > 20) thisAmount += 10000 + 500 * (perf.Audience - 20);
-                    thisAmount += 300 * perf.Audience;
+                    amountForPerformance = 30000;
+                    if (audience > 20) amountForPerformance += 10000 + 500 * (audience - 20);
+                    amountForPerformance += 300 * audience;
                     break;
 
                 default:
-                    throw new Exception($"unknown type: {play.PayType}");
+                    throw new Exception($"unknown type: {payType}");
             }
-
-            return thisAmount;
+            return amountForPerformance;
         }
     }
 }
