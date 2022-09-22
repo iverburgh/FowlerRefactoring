@@ -8,15 +8,15 @@ namespace VideoStore.Console.Tests.Mocks
 {
     internal static class PerformanceMocks
     {
-        internal static IEnumerable<Models.Performance> GetPerformanceList()
+        internal static IEnumerable<PersistanceModels.Performance> GetPerformanceList()
         {
-            return new List<Models.Performance>()
+            return new List<PersistanceModels.Performance>()
             {
-                new Models.Performance()
+                new PersistanceModels.Performance()
                 {
                     Id   = Guid.NewGuid(),
                     Audience = 35,
-                    Play = new Models.Play()
+                    Play = new PersistanceModels.Play()
                     {
                         Id = Guid.Parse("53b706f8-6156-43a1-95c9-32375171882d"),
                         PayType = 1,
@@ -24,11 +24,11 @@ namespace VideoStore.Console.Tests.Mocks
                         ShortName = "as-like",
                     }
                 },
-                new Models.Performance()
+                new PersistanceModels.Performance()
                 {
                     Id   = Guid.NewGuid(),
                     Audience = 55,
-                    Play = new Models.Play()
+                    Play = new PersistanceModels.Play()
                     {
                         Id = Guid.Parse("3825ae15-e5c0-42a8-94d6-e53f0f5e8144"),
                         PayType = 0,
@@ -36,11 +36,11 @@ namespace VideoStore.Console.Tests.Mocks
                         ShortName = "hamlet",
                     }
                 },
-                new Models.Performance()
+                new PersistanceModels.Performance()
                 {
                  Id   = Guid.NewGuid(),
                  Audience = 40,
-                 Play = new Models.Play()
+                 Play = new PersistanceModels.Play()
                  {
                      Id = Guid.Parse("e42aae50-0d35-453d-8ba4-577aae3ccf68"),
                      PayType = 0,

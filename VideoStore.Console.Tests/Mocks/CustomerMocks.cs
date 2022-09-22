@@ -1,4 +1,4 @@
-﻿using VideoStore.Console.Models;
+﻿using VideoStore.Console.PersistanceModels;
 
 namespace VideoStore.Console.Tests.Mocks
 {

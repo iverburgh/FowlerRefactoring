@@ -1,7 +1,7 @@
 using FluentAssertions;
 using System.Collections.Immutable;
 using Moq;
-using VideoStore.Console.Models;
+using VideoStore.Console.PersistanceModels;
 using VideoStore.Console.Persistence;
 using VideoStore.Console.Tests.Mocks;
 
@@ -11,9 +11,9 @@ namespace VideoStore.Console.Tests
     {
         private VideoStore _subject;
 
-        private readonly Mock<IRepository<Models.Customer>> _customerRepositoryMock;
-        private readonly Mock<IRepository<Models.Performance>> _performanceRepositoryMock;
-        private readonly Mock<IRepository<Models.Play>> _playRepositoryMock;
+        private readonly Mock<IRepository<Customer>> _customerRepositoryMock;
+        private readonly Mock<IRepository<PersistanceModels.Performance>> _performanceRepositoryMock;
+        private readonly Mock<IRepository<PersistanceModels.Play>> _playRepositoryMock;
 
         private IImmutableDictionary<string, Play> _plays;
         private Invoice _invoice;
@@ -34,15 +34,15 @@ namespace VideoStore.Console.Tests
             //    new Performance("othello", 40)
             //});
 
-            _customerRepositoryMock = new Mock<IRepository<Models.Customer>>();
+            _customerRepositoryMock = new Mock<IRepository<Customer>>();
             _customerRepositoryMock
                 .Setup(cr => cr.GetAll())
                 .Returns(CustomerMocks.GetCustomerList());
-            _performanceRepositoryMock = new Mock<IRepository<Models.Performance>>();
+            _performanceRepositoryMock = new Mock<IRepository<PersistanceModels.Performance>>();
             _performanceRepositoryMock
                 .Setup(pr => pr.GetAll())
                 .Returns(PerformanceMocks.GetPerformanceList());
-            _playRepositoryMock = new Mock<IRepository<Models.Play>>();
+            _playRepositoryMock = new Mock<IRepository<PersistanceModels.Play>>();
             _playRepositoryMock
                 .Setup(pr => pr.GetAll())
                 .Returns(PlayMocks.GetPlayList());

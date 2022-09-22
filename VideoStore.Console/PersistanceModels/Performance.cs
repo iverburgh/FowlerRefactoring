@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace VideoStore.Console.Models
+﻿namespace VideoStore.Console.PersistanceModels
 {
-    public partial class Performance
+    public class Performance : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid PlayId { get; set; }
         public int Audience { get; set; }
         public Guid CustomerId { get; set; }

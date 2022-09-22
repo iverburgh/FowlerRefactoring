@@ -8,9 +8,9 @@ namespace VideoStore.Console.Tests.Mocks
 {
     internal static class PlayMocks
     {
-        internal static IEnumerable<Models.Play> GetPlayList()
+        internal static IEnumerable<PersistanceModels.Play> GetPlayList()
         {
-            return new List<Models.Play>()
+            return new List<PersistanceModels.Play>()
             {
                 new ()
                 {

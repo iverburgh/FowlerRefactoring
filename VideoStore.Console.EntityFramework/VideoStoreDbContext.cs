@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using VideoStore.Console.PersistanceModels;
 
-namespace VideoStore.Console.Models
+namespace VideoStore.Console.EntityFramework
 {
     public partial class VideoStoreContext : DbContext
     {
@@ -40,7 +38,7 @@ namespace VideoStore.Console.Models
                 entity.Property(e => e.Name).IsUnicode(false);
             });
 
-            modelBuilder.Entity<Performance>(entity =>
+            modelBuilder.Entity<PersistanceModels.Performance>(entity =>
             {
                 entity.ToTable("Performance");
 
@@ -59,7 +57,7 @@ namespace VideoStore.Console.Models
                     .HasConstraintName("FK_Performance_Play");
             });
 
-            modelBuilder.Entity<Play>(entity =>
+            modelBuilder.Entity<PersistanceModels.Play>(entity =>
             {
                 entity.ToTable("Play");
 

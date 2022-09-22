@@ -2,21 +2,21 @@
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using VideoStore.Console.Extensions;
-using VideoStore.Console.Models;
+using VideoStore.Console.PersistanceModels;
 using VideoStore.Console.Persistence;
 
 namespace VideoStore.Console
 {
     public class VideoStore : IVideoStore
     {
-        private readonly IRepository<Models.Customer> _customerRepository;
-        private readonly IRepository<Models.Performance> _performanceRepository;
-        private readonly IRepository<Models.Play> _playRepository;
+        private readonly IRepository<Customer> _customerRepository;
+        private readonly IRepository<PersistanceModels.Performance> _performanceRepository;
+        private readonly IRepository<PersistanceModels.Play> _playRepository;
 
         public VideoStore(
             IRepository<Customer> customerRepository,
-            IRepository<Models.Performance> performanceRepository,
-            IRepository<Models.Play> playRepository)
+            IRepository<PersistanceModels.Performance> performanceRepository,
+            IRepository<PersistanceModels.Play> playRepository)
         {
             _customerRepository = customerRepository;
             _performanceRepository = performanceRepository;

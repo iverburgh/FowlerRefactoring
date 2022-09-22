@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{97
 		Database\CreateDatabase.sql = Database\CreateDatabase.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoStore.Console.EntityFramework", "VideoStore.Console.EntityFramework\VideoStore.Console.EntityFramework.csproj", "{B19FAF4D-E67E-4023-9888-2E01AA6256A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{FB1FEE76-AF95-4347-BB9B-F454DEE04655}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB1FEE76-AF95-4347-BB9B-F454DEE04655}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB1FEE76-AF95-4347-BB9B-F454DEE04655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B19FAF4D-E67E-4023-9888-2E01AA6256A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B19FAF4D-E67E-4023-9888-2E01AA6256A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B19FAF4D-E67E-4023-9888-2E01AA6256A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B19FAF4D-E67E-4023-9888-2E01AA6256A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
