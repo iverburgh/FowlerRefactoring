@@ -61,25 +61,21 @@ namespace VideoStore.Console
 
         private static int GetAmountForPerformance(PayType payType, int audience)
         {
-            int amountForPerformance;
             switch (payType)
             {
                 case PayType.Tragedy:
-                    amountForPerformance = 40000;
+                    var amountForPerformance = 40000;
                     if (audience > 30) amountForPerformance += 1000 * (audience - 30);
 
-                    break;
-
+                    return amountForPerformance;
                 case PayType.Comedy:
                     amountForPerformance = 30000;
                     if (audience > 20) amountForPerformance += 10000 + 500 * (audience - 20);
                     amountForPerformance += 300 * audience;
-                    break;
-
+                    return amountForPerformance;
                 default:
                     throw new Exception($"unknown type: {payType}");
             }
-            return amountForPerformance;
         }
     }
 }
